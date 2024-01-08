@@ -9,7 +9,7 @@ Task and time management app with Taipy.
 1. Set up your venv for this project
 2. Run Command `pip install -r requirements.txt
 `
-3. Run `python3 main.py` or `python main.py`
+3. Run `python3 src/main.py` or `python src/main.py`
 4. A window should have launched at 127.0.0.1:5001
 
 ## Background
