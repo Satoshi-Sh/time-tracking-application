@@ -1,0 +1,28 @@
+.card {
+  background-color: grey;
+  color: white;
+  border: 3px solid white;
+  text-align: center;
+  height: 18rem;
+}
+
+.board {
+  margin-top: 40px;
+}
+
+button {
+  margin: 10px;
+}
+#display {
+  font-size: 40px;
+}
+
+#status {
+  font-size: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+.time {
+  font-size: 30px;
+}

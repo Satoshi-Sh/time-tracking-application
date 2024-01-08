@@ -39,6 +39,8 @@ def submit(state):
 
 
 def cancel(state):
+    if state.activity == "Not Working":
+        return
     add_log(
         state,
         state.yourtask,
@@ -87,21 +89,21 @@ def work(state):
 page = """
 #Task Time Tracker
 <|layout|columns=1 1 1|
-<|container card|
+<|card|
 ##<|{yourtask}|> <br/>
 
 ## <|{task}|input|> <br />
 <|Start|button|class_name=submit|on_action=submit|>
 <|Finish|button|class_name=secondary|on_action=cancel|>
 |>
-<|container card|
-## <|Time Amount|> <br/>
-<|{displayed_time}|> 
+<|card|
+## <|Time Amount|> 
+<|{displayed_time}|id=display|> 
 |>
-<|container card|
-##<|Status|> <br/>
-<|{status}|>
-<||class_name="buttons"|
+<|card|
+##<|Status|> <br />
+<|{status}|id=status|><br/>
+<|board
 <|Work|button|class_name=submit|on_action=work|>
 <|Break|button|class_name=secondary|on_action=take_break|>
 |>
