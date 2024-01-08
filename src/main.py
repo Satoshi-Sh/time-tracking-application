@@ -39,6 +39,8 @@ def submit(state):
 
 
 def cancel(state):
+    if state.activity == "Not Working":
+        return
     add_log(
         state,
         state.yourtask,
@@ -94,7 +96,7 @@ page = """
 <|Start|button|class_name=submit|on_action=submit|>
 <|Finish|button|class_name=secondary|on_action=cancel|>
 |>
-<|container card|
+<|container card time|
 ## <|Time Amount|> <br/>
 <|{displayed_time}|> 
 |>
