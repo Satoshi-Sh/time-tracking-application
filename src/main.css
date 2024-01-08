@@ -5,10 +5,24 @@
   text-align: center;
   height: 18rem;
 }
-.buttons {
-  margin: 20px;
+
+.board {
+  margin-top: 40px;
 }
 
+button {
+  margin: 10px;
+}
+#display {
+  font-size: 40px;
+}
+
+#status {
+  font-size: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
 .time {
   font-size: 30px;
 }
