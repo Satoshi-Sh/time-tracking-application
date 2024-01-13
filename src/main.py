@@ -88,7 +88,7 @@ def work(state):
 
 page = """
 #Task Time Tracker
-<|layout|columns=1 1 1|
+<|layout|columns=1 1 1 1|
 <|card|
 ##<|{yourtask}|> <br/>
 
@@ -108,6 +108,12 @@ page = """
 <|Break|button|class_name=secondary|on_action=take_break|>
 |>
 |>
+
+<|card|
+## <|Break Reminder|>
+<|dropdown|>
+|>
+
 |>
 <|container log-board|
 ##<|Log|>
