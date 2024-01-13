@@ -1,4 +1,4 @@
-# UR MaUniversal - Your Mom Universal Remote Monitored Accountability
+# Time Tracking Application
 
 ## Description
 

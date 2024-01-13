@@ -8,7 +8,7 @@ init_dic = {
     "task": [],
     "time": [],
     "message": [],
-    "activity": [],
+    "status": [],
     "time_amount": [],
 }
 logs = init_dic
@@ -38,8 +38,8 @@ def submit(state):
         time.sleep(1)
 
 
-def cancel(state):
-    if state.activity == "Not Working":
+def finsh(state):
+    if state.status == "Not Working":
         return
     add_log(
         state,
@@ -94,7 +94,7 @@ page = """
 
 ## <|{task}|input|> <br />
 <|Start|button|class_name=submit|on_action=submit|>
-<|Finish|button|class_name=secondary|on_action=cancel|>
+<|Finish|button|class_name=secondary|on_action=finsh|>
 |>
 <|card|
 ## <|Time Amount|> 
@@ -117,7 +117,7 @@ page = """
 |>
 <|container log-board|
 ##<|Log|>
-<|{logs}|table|columns={["task","time","message","activity","time_amount"]}|show_all|>
+<|{logs}|table|columns={["task","time","message","status","time_amount"]}|show_all|>
 |>
 
 

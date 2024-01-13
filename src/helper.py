@@ -18,13 +18,11 @@ def get_minuts(seconds):
     return minutes
 
 
-def add_log(
-    state, task, time_amount=59, activity="break", message="hello this is a test"
-):
+def add_log(state, task, time_amount, status, message):
     temp = state.logs
     temp.task.append(task)
     temp.time.append(get_current_time())
     temp.time_amount.append(time_amount)
     temp.message.append(message)
-    temp.activity.append(activity)
+    temp.status.append(status)
     state.logs = temp
