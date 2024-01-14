@@ -41,7 +41,7 @@ def get_todays_data():
                 },
                 ignore_index=True,
             )
-        print(df)
+        return df
     else:
         print(f"Error: {response.status_code} - {response.text}")
 
