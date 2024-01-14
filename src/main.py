@@ -95,11 +95,10 @@ def work(state):
     
 
 plot_properties = {
-    
-    "y[1]":"Work",
-    "color[1]":"#16a34a",
-    "y[2]":"Break",
-    "color[2]":"#dc2626",
+    "y[1]":"Break",
+    "color[1]":"#dc2626",
+    "y[2]":"Work",
+    "color[2]":"#16a34a",
     "x":"Task"
 }
 
