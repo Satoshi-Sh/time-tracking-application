@@ -2,7 +2,11 @@
 
 ## Description
 
-Task and time management app with Taipy.
+Task and time management app with Taipy and Kintone.
+
+## Setting up Kinton as Backend
+
+upcoming
 
 ## How to run application locally
 
