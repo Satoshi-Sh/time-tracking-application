@@ -1,6 +1,6 @@
 from taipy.gui import Gui, State
 import time
-from helper import format_duration, add_log, get_minuts, get_current_time
+from helper import format_duration, add_log, get_minutes, get_current_time, compute_times
 
 task = ""
 yourtask = "Enter Your Task"
@@ -12,6 +12,11 @@ init_dic = {
     "time_amount": [],
 }
 logs = init_dic
+plot_data = {
+    "Task":[],
+    "Work":[],
+    "Break":[]
+}
 
 time_amount = 0
 displayed_time = format_duration(time_amount)
@@ -38,7 +43,7 @@ def submit(state):
         time.sleep(1)
 
 
-def finsh(state):
+def finish(state):
     if state.status == "Not Working":
         return
     add_log(
@@ -54,7 +59,8 @@ def finsh(state):
     state.displayed_time = format_duration(0)
     state.status = "Not Working"
     state.stop_flag = True
-
+    compute_times(state)
+    
 
 def take_break(state):
     if not (state.status == "Working"):
@@ -64,11 +70,12 @@ def take_break(state):
         state.yourtask,
         state.time_amount,
         state.status,
-        f"\nWorked for {get_minuts(state.time_amount)} mins\nTaking a break",
+        f"\nWorked for {get_minutes(state.time_amount)} mins\nTaking a break",
     )
     state.time_amount = 0
     state.displayed_time = format_duration(0)
     state.status = "Break"
+    compute_times(state)
 
 
 def work(state):
@@ -79,22 +86,33 @@ def work(state):
         state.yourtask,
         state.time_amount,
         state.status,
-        f"\nTook a break for {get_minuts(state.time_amount)} mins\n Restart a task",
+        f"\nTook a break for {get_minutes(state.time_amount)} mins\n Restart a task",
     )
     state.time_amount = 0
     state.displayed_time = format_duration(0)
     state.status = "Working"
+    compute_times(state)
+    
+
+plot_properties = {
+    
+    "y[1]":"Work",
+    "color[1]":"#16a34a",
+    "y[2]":"Break",
+    "color[2]":"#dc2626",
+    "x":"Task"
+}
 
 
 page = """
 #Task Time Tracker
-<|layout|columns=1 1 1 1|
+<|layout|columns=1 1 1|
 <|card|
 ##<|{yourtask}|> <br/>
 
 ## <|{task}|input|> <br />
 <|Start|button|class_name=submit|on_action=submit|>
-<|Finish|button|class_name=secondary|on_action=finsh|>
+<|Finish|button|class_name=secondary|on_action=finish|>
 |>
 <|card|
 ## <|Time Amount|> 
@@ -108,17 +126,13 @@ page = """
 <|Break|button|class_name=secondary|on_action=take_break|>
 |>
 |>
-
-<|card|
-## <|Break Reminder|>
-<|dropdown|>
-|>
-
 |>
 <|container log-board|
 ##<|Log|>
 <|{logs}|table|columns={["task","time","message","status","time_amount"]}|show_all|>
 |>
+
+<|{plot_data}|chart|type=bar|properties={plot_properties}|>
 
 
 """
