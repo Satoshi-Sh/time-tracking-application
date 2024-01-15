@@ -1,6 +1,12 @@
 from taipy.gui import Gui, State
 import time
-from helper import format_duration, add_log, get_minutes, get_current_time, compute_times
+from helper import (
+    format_duration,
+    add_log,
+    get_minutes,
+    get_current_time,
+    compute_times,
+)
 
 task = ""
 yourtask = "Enter Your Task"
@@ -12,11 +18,7 @@ init_dic = {
     "time_amount": [],
 }
 logs = init_dic
-plot_data = {
-    "Task":[],
-    "Work":[],
-    "Break":[]
-}
+plot_data = {"Task": [], "Work": [], "Break": []}
 
 time_amount = 0
 displayed_time = format_duration(time_amount)
@@ -60,7 +62,7 @@ def finish(state):
     state.status = "Not Working"
     state.stop_flag = True
     compute_times(state)
-    
+
 
 def take_break(state):
     if not (state.status == "Working"):
@@ -92,15 +94,14 @@ def work(state):
     state.displayed_time = format_duration(0)
     state.status = "Working"
     compute_times(state)
-    
+
 
 plot_properties = {
-    
-    "y[1]":"Work",
-    "color[1]":"#16a34a",
-    "y[2]":"Break",
-    "color[2]":"#dc2626",
-    "x":"Task"
+    "y[1]": "Break",
+    "color[1]": "#dc2626",
+    "y[2]": "Work",
+    "color[2]": "#16a34a",
+    "x": "Task",
 }
 
 
