@@ -22,7 +22,10 @@ time_amount = 0
 displayed_time = format_duration(time_amount)
 
 button = ""
-status = "Not Working"
+status = "Not Started"
+status_btn_label = "----"
+
+start_stop_btn_label = "START"
 
 stop_flag = False
 
@@ -36,6 +39,8 @@ def submit(state):
     state.task = ""
     state.stop_flag = False
     state.status = "Working"
+    state.status_btn_label = "BREAK"
+    state.start_stop_btn_label = "FINISH"  
 
     while not state.stop_flag:
         state.time_amount += 1
@@ -57,10 +62,19 @@ def finish(state):
     state.yourtask = "Enter Your Task"
     state.time_amount = 0
     state.displayed_time = format_duration(0)
-    state.status = "Not Working"
+    state.status = "Not Started"
     state.stop_flag = True
+    state.start_stop_btn_label = "START"
+    state.status_btn_label = "----"
     compute_times(state)
-    
+
+
+def start_stop_btn_action(state):
+    if state.status == "Working":
+        finish(state)       
+    else:      
+        submit(state) 
+        
 
 def take_break(state):
     if not (state.status == "Working"):
@@ -75,6 +89,7 @@ def take_break(state):
     state.time_amount = 0
     state.displayed_time = format_duration(0)
     state.status = "Break"
+    state.status_btn_label = "WORK"
     compute_times(state)
 
 
@@ -91,8 +106,17 @@ def work(state):
     state.time_amount = 0
     state.displayed_time = format_duration(0)
     state.status = "Working"
+    state.status_btn_label = "BREAK"
     compute_times(state)
-    
+
+
+def status_btn_action(state):
+    if state.status == "Working":
+        take_break(state)
+        
+    elif state.status == "Break":
+        work(state)
+
 
 plot_properties = {
     "y[1]":"Break",
@@ -110,8 +134,7 @@ page = """
 ##<|{yourtask}|> <br/>
 
 ## <|{task}|input|> <br />
-<|Start|button|class_name=submit|on_action=submit|>
-<|Finish|button|class_name=secondary|on_action=finish|>
+<|{start_stop_btn_label}|button|on_action=start_stop_btn_action|>
 |>
 <|card|
 ## <|Time Amount|> 
@@ -121,8 +144,8 @@ page = """
 ##<|Status|> <br />
 <|{status}|id=status|><br/>
 <|board
-<|Work|button|class_name=submit|on_action=work|>
-<|Break|button|class_name=secondary|on_action=take_break|>
+<|{status_btn_label}|button|on_action=status_btn_action|active={status!="Not Started"}|>
+
 |>
 |>
 |>
