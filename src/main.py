@@ -70,7 +70,7 @@ def finish(state):
 
 
 def start_stop_btn_action(state):
-    if state.status == "Working":
+    if state.status == "Working" or state.status == "Break" :
         finish(state)       
     else:      
         submit(state) 
