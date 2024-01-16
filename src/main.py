@@ -1,6 +1,12 @@
 from taipy.gui import Gui, State
 import time
-from helper import format_duration, add_log, get_minutes, get_current_time, compute_times
+from helper import (
+    format_duration,
+    add_log,
+    get_minutes,
+    get_current_time,
+    compute_times,
+)
 
 task = ""
 yourtask = "Enter Your Task"
@@ -12,11 +18,7 @@ init_dic = {
     "time_amount": [],
 }
 logs = init_dic
-plot_data = {
-    "Task":[],
-    "Work":[],
-    "Break":[]
-}
+plot_data = {"Task": [], "Work": [], "Break": []}
 
 time_amount = 0
 displayed_time = format_duration(time_amount)
@@ -40,7 +42,7 @@ def submit(state):
     state.stop_flag = False
     state.status = "Working"
     state.status_btn_label = "BREAK"
-    state.start_stop_btn_label = "FINISH"  
+    state.start_stop_btn_label = "FINISH"
 
     while not state.stop_flag:
         state.time_amount += 1
@@ -70,11 +72,11 @@ def finish(state):
 
 
 def start_stop_btn_action(state):
-    if state.status == "Working" or state.status == "Break" :
-        finish(state)       
-    else:      
-        submit(state) 
-        
+    if state.status == "Working" or state.status == "Break":
+        finish(state)
+    else:
+        submit(state)
+
 
 def take_break(state):
     if not (state.status == "Working"):
@@ -113,17 +115,17 @@ def work(state):
 def status_btn_action(state):
     if state.status == "Working":
         take_break(state)
-        
+
     elif state.status == "Break":
         work(state)
 
 
 plot_properties = {
-    "y[1]":"Break",
-    "color[1]":"#dc2626",
-    "y[2]":"Work",
-    "color[2]":"#16a34a",
-    "x":"Task"
+    "y[1]": "Break",
+    "color[1]": "#dc2626",
+    "y[2]": "Work",
+    "color[2]": "#16a34a",
+    "x": "Task",
 }
 
 
@@ -149,13 +151,16 @@ page = """
 |>
 |>
 |>
+<|layout|columns=1 1 |
 <|container log-board|
 ##<|Log|>
-<|{logs}|table|columns={["task","time","message","status","time_amount"]}|show_all|>
+<|{logs}|table|columns={["task","time","message","status","time_amount"]}|page_size=12|>
 |>
-
+<|container log-board|
+##<|Activity Plot|>
 <|{plot_data}|chart|type=bar|properties={plot_properties}|>
-
+|>
+|>
 
 """
 Gui(page, css_file="main.css").run(

@@ -27,9 +27,12 @@ def add_log(state, task, time_amount, status, message):
     temp.status.append(status)
     state.logs = temp
 
+
 # Find unique values in a list
 def find_unique_keys(my_list):
-    unique_values = [item for index, item in enumerate(my_list) if item not in my_list[:index]]
+    unique_values = [
+        item for index, item in enumerate(my_list) if item not in my_list[:index]
+    ]
     return unique_values
 
 
@@ -60,4 +63,3 @@ def compute_times(state):
 
     # Update the state with the new plot data
     state.plot_data = new_plot_data
-                    
