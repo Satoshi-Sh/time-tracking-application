@@ -151,13 +151,16 @@ page = """
 |>
 |>
 |>
+<|layout|columns=1 1 |
 <|container log-board|
 ##<|Log|>
-<|{logs}|table|columns={["task","time","message","status","time_amount"]}|show_all|>
+<|{logs}|table|columns={["task","time","message","status","time_amount"]}|page_size=12|>
 |>
-
+<|container log-board|
+##<|Activity Plot|>
 <|{plot_data}|chart|type=bar|properties={plot_properties}|>
-
+|>
+|>
 
 """
 Gui(page, css_file="main.css").run(

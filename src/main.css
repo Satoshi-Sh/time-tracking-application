@@ -10,6 +10,10 @@
   margin-top: 40px;
 }
 
+.log-board {
+  height: 500px;
+}
+
 button {
   margin: 10px;
 }
