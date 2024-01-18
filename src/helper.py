@@ -1,4 +1,10 @@
 from datetime import datetime
+import random
+
+snakes=['cobra', 'copperhead', 'cottonmouth', 'viper', 'fishing_snake', 'flying_snake', 'gopher_snake', 'habu', 'hognose_snake', 'hoop_snake', 'jararacussu', 'keelback', 'krait', 'lancehead', 'lora', 'mamba', 'mamushi', 'moccasin', 'mussurana', 'parrot_snake', 'python', 'queen_snake', 'racer', 'raddysnake', 'rat_snake', 'rattlesnake', 'ribbon_snake', 'sea_snake', 'sidewinder', 'sunbeam_snake', 'taipan', 'tiger_snake', 'titanoboa', 'urutu', 'viper', 'wolf_snake']
+
+def get_random_name():
+  return f'{random.choice(snakes)}_{random.randint(1000,9999)}'
 
 
 def format_duration(seconds):
