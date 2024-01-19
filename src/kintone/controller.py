@@ -22,6 +22,7 @@ def get_todays_data():
     if response.status_code == 200:
         records = response.json()["records"]
         df = pd.DataFrame()
+
         for record in records:
             username = record.get("username", {}).get("value", "")
             time = record.get("time", {}).get("value", "")
@@ -37,11 +38,37 @@ def get_todays_data():
                     "Task": task,
                     "Date": date,
                     "Status": status,
-                    "Time Amount": time_amount,
+                    "Time Amount": int(time_amount),
                 },
                 ignore_index=True,
             )
-        return df
+        working_break_df = df[df["Status"].isin(["Working", "Break"])]
+
+        # Group by Username and Status, then sum the Time Amount
+        grouped_df = (
+            working_break_df.groupby(["Username", "Status"])
+            .agg({"Time Amount": "sum"})
+            .reset_index()
+        )
+
+        # Pivot the table to get "Working" and "Break" as columns
+        pivot_df = grouped_df.pivot(
+            index="Username", columns="Status", values="Time Amount"
+        ).reset_index()
+
+        # Fill NaN values with 0
+        pivot_df = pivot_df.fillna(0)
+        data = pd.DataFrame(
+            {
+                "users": pivot_df["Username"],
+                "Break": pivot_df["Break"],
+                "Working": pivot_df["Working"],
+            }
+        )
+        # data["Break"] = data["Break"] / data["Break"].max()
+        # data["Working"] = -data["Working"] / data["Working"].max()
+        data["Working"] = -data["Working"]
+        return data
     else:
         print(f"Error: {response.status_code} - {response.text}")
 

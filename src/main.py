@@ -1,13 +1,17 @@
 from taipy.gui import Gui, State
+from kintone.controller import get_todays_data
 import time
 from helper import (
     format_duration,
     add_log,
     get_minutes,
-    get_current_time,
+    get_random_name,
     compute_times,
+    prop,
 )
 
+username = get_random_name()
+todays_df = get_todays_data()
 task = ""
 yourtask = "Enter Your Task"
 init_dic = {
@@ -122,15 +126,18 @@ def status_btn_action(state):
 
 plot_properties = {
     "y[1]": "Break",
-    "color[1]": "#dc2626",
+    "color[1]": "#c26391",
     "y[2]": "Work",
-    "color[2]": "#16a34a",
+    "color[2]": "#5c91de",
     "x": "Task",
 }
 
 
 page = """
-#Task Time Tracker
+#Task Time Tracker 
+<|username|
+username:<|{username}|>
+|>
 <|layout|columns=1 1 1|
 <|card|
 ##<|{yourtask}|> <br/>
@@ -161,7 +168,8 @@ page = """
 <|{plot_data}|chart|type=bar|properties={plot_properties}|>
 |>
 |>
-
+### Users' Activities
+<|{todays_df}|chart|type=bar|properties={prop}|>
 """
 Gui(page, css_file="main.css").run(
     title="Task Time Tracker", dark_mode=True, use_reloader=True, port=5001

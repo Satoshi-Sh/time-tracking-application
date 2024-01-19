@@ -1,10 +1,42 @@
 from datetime import datetime
 import random
+from kintone.controller import post_record, get_todays_data
 
-snakes=['cobra', 'copperhead', 'cottonmouth', 'viper', 'fishing_snake', 'flying_snake', 'gopher_snake', 'habu', 'hognose_snake', 'hoop_snake', 'jararacussu', 'keelback', 'krait', 'lancehead', 'lora', 'mamba', 'mamushi', 'moccasin', 'mussurana', 'parrot_snake', 'python', 'queen_snake', 'racer', 'raddysnake', 'rat_snake', 'rattlesnake', 'ribbon_snake', 'sea_snake', 'sidewinder', 'sunbeam_snake', 'taipan', 'tiger_snake', 'titanoboa', 'urutu', 'viper', 'wolf_snake']
+snakes = [
+    "cobra",
+    "viper",
+    "habu",
+    "keelback",
+    "krait",
+    "lancehead",
+    "lora",
+    "mamba",
+    "mamushi",
+    "moccasin",
+    "python",
+    "racer",
+    "rat_snake",
+    "sea_snake",
+    "taipan",
+    "titanoboa",
+    "urutu",
+    "viper",
+    "cat",
+    "dog",
+    "lion",
+    "panda",
+    "racoon",
+    "bear",
+    "cow",
+    "sheep",
+    "rabbit",
+    "tiger",
+    "spider",
+]
+
 
 def get_random_name():
-  return f'{random.choice(snakes)}_{random.randint(1000,9999)}'
+    return f"{random.choice(snakes)}_{random.randint(1,99)}"
 
 
 def format_duration(seconds):
@@ -19,19 +51,39 @@ def get_current_time():
     return current_time
 
 
+def get_current_date():
+    now = datetime.now()
+    current_date = now.strftime("%Y-%m-%d")
+    return current_date
+
+
 def get_minutes(seconds):
     minutes, remaining_seconds = divmod(seconds, 60)
     return minutes
 
 
 def add_log(state, task, time_amount, status, message):
+    current_time = get_current_time()
+    ## Backend post
+    data = {
+        "username": {"value": state.username},
+        "time": {"value": current_time},
+        "task": {"value": task},
+        "date": {"value": get_current_date()},
+        "status": {"value": status},
+        "time_amount": {"value": time_amount},
+    }
+    post_record(data)
+    ## UI part
     temp = state.logs
     temp.task.append(task)
-    temp.time.append(get_current_time())
+    temp.time.append(current_time)
     temp.time_amount.append(time_amount)
     temp.message.append(message)
     temp.status.append(status)
     state.logs = temp
+    ## Get New Data
+    state.todays_df = get_todays_data()
 
 
 # Find unique values in a list
@@ -69,3 +121,22 @@ def compute_times(state):
 
     # Update the state with the new plot data
     state.plot_data = new_plot_data
+
+
+prop = {
+    # Shared y values
+    "y": "users",
+    "x[1]": "Break",
+    "color[1]": "#c26391",
+    "x[2]": "Working",
+    "color[2]": "#5c91de",
+    "orientation": "h",
+    #
+    "layout": {
+        "barmode": "overlay",
+        # Set a relevant title for the x axis
+        "xaxis": {"title": "Users"},
+        # Hide the legend
+        "showlegend": False,
+    },
+}
