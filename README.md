@@ -1,5 +1,7 @@
 # Time Tracking Application
 
+![Application Demo](./time-tracking-demo.gif)
+
 ## Description
 
 Task and time management app with Taipy and Kintone.
