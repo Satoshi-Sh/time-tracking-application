@@ -39,3 +39,8 @@ button {
 .time {
   font-size: 30px;
 }
+
+.last {
+  padding-top: 20px;
+  margin-top: 30px;
+}

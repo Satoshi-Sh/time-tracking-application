@@ -168,7 +168,9 @@ username:<|{username}|>
 <|{plot_data}|chart|type=bar|properties={plot_properties}|>
 |>
 |>
+<|last
 ### Users' Activities
+|>
 <|{todays_df}|chart|type=bar|properties={prop}|>
 """
 Gui(page, css_file="main.css").run(
