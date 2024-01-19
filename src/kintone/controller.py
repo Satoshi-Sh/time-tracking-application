@@ -67,7 +67,7 @@ def get_todays_data():
         )
         # data["Break"] = data["Break"] / data["Break"].max()
         # data["Working"] = -data["Working"] / data["Working"].max()
-        data["Working"] = -data["Working"]
+        data["Break"] = -data["Break"]
         return data
     else:
         print(f"Error: {response.status_code} - {response.text}")
