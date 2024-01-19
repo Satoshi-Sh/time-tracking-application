@@ -4,9 +4,12 @@
 
 Task and time management app with Taipy and Kintone.
 
-## Setting up Kinton as Backend
+## Setting up Kintone as Backend
 
-upcoming
+1. Make an developer account
+2. Create an application with username, time, task, date,status, time_amount
+3. Generate API access token.
+4. Add your credentials to the .env file according to the env.sample file.
 
 ## How to run application locally
 

@@ -21,7 +21,13 @@ def get_todays_data():
     response = requests.get(url, headers=headers, params=params)
     if response.status_code == 200:
         records = response.json()["records"]
+
         df = pd.DataFrame()
+
+        if len(records) == 0:
+            data = {"users": [], "Working": [], "Break": []}
+            df = pd.DataFrame(data)
+            return df
 
         for record in records:
             username = record.get("username", {}).get("value", "")
