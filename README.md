@@ -2,18 +2,20 @@
 
 ![Application Demo](./time-tracking-demo.gif)
 
+## Demo
+[Demo Video Link](https://www.youtube.com/watch?v=WoisN8UZmvw)
 ## Description
 
 Task and time management app with Taipy and Kintone.
 
-## Setting up Kintone as Backend
+## Setting up Kintone as a Backend
 
-1. Make an developer account
-2. Create an application with username, time, task, date,status, time_amount
+1. Make a developer account
+2. Create an application with username, time, task, date, status, time_amount
 3. Generate API access token.
 4. Add your credentials to the .env file according to the env.sample file.
 
-## How to run application locally
+## How to run the application locally
 
 1. Set up your venv for this project
 2. Run Command `pip install -r requirements.txt
