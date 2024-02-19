@@ -26,3 +26,7 @@ Task and time management app with Taipy and Kintone.
 ## Background
 
 This application was created for [MLH's Month Long Hackaton](https://mlh-s-month-long-hackathon.devpost.com/) January 2024 by Rad, David, and Satoshi.
+
+We won the prize of "Best use of Kintone" with this project!!
+
+[Project Post](https://devpost.com/software/time-tracking-application)
