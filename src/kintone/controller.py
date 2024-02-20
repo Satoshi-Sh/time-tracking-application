@@ -80,8 +80,12 @@ def get_todays_data():
 
 def post_record(data):
     params = {"app": app_id, "records": [data]}
-    resp = requests.post(url, json=params, headers=headers)
-    return resp
+    try:
+        resp = requests.post(url, json=params, headers=headers)
+        return resp
+    except requests.exceptions.RequestException as e:
+        print("Error:", e)
+        return None
 
 
 # sample_record = {
